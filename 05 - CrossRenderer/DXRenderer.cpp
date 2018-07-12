@@ -286,7 +286,7 @@ DXRenderer::~DXRenderer()
 	delete mResources;
 }
 
-iRenderWindow* DXRenderer::CreateRenderWindow(int aWidth, int aHeight, char* aTitle, eWindowMode aMode)
+RenderWindow* DXRenderer::CreateRenderWindow(int aWidth, int aHeight, char* aTitle, eWindowMode aMode)
 {
 	assert(aWidth > 0);
 	assert(aHeight > 0);

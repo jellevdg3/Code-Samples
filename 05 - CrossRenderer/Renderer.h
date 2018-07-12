@@ -104,11 +104,11 @@ struct sRenderTargetBlendDesc
 	eBlendOP mBlendOPAlpha;
 };
 
-class iRenderWindow
+class RenderWindow
 {
 public:
-    iRenderWindow(int aWidth, int aHeight, char* aTitle, eWindowMode aMode) {}
-    virtual ~iRenderWindow() {}
+    RenderWindow(int aWidth, int aHeight, char* aTitle, eWindowMode aMode) {}
+    virtual ~RenderWindow() {}
 
     virtual void ChangeMode(eWindowMode aMode) = 0;
     virtual void ChangeName(char* aName) = 0;
@@ -133,7 +133,7 @@ public:
     Renderer() {}
     virtual ~Renderer() {}
 
-    virtual iRenderWindow* CreateRenderWindow(int aWidth, int aHeight, char* aTitle, eWindowMode aMode) = 0;
+    virtual RenderWindow* CreateRenderWindow(int aWidth, int aHeight, char* aTitle, eWindowMode aMode) = 0;
 
     virtual sResourceID LoadTexture(int aWidth, int aHeight, char* aRawData, eTextureDimension dimension = eTextureDimension::TEXTUREDIMENSION_2D, eTextureFormat format = eTextureFormat::TEXTUREFORMAT_R8G8B8A8, bool aRenderTargetBindable = false) = 0;
     virtual sResourceID CompileVertexShader(char* aData) = 0;
