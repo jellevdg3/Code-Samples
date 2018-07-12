@@ -77,7 +77,7 @@ namespace Tmpl8
 		BVHManager();
 		~BVHManager();
 
-        void SetBinaryPath(char* path);
+		void SetBinaryPath(char* path);
 
 		// Construct the BVH
 		void Construct(struct Primitive* primitives, int count, bool forcerebuild = false);
@@ -104,13 +104,13 @@ namespace Tmpl8
 		double averagePrimitives;
 
 		// Data
-        std::string path;
+		std::string path;
 
 		struct Primitive* primitives;
 		BVHNode* nodePool;
-        uint* indices;
-        uint nodePoolSize;
-        uint nodePoolptr;
+		uint* indices;
+		uint nodePoolSize;
+		uint nodePoolptr;
 		BVHNode* root;
 
 	private:

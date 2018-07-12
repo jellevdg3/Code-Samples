@@ -54,7 +54,7 @@ BVHManager::BVHManager()
 	indices = nullptr;
 	nodePool = nullptr;
 	root = nullptr;
-    path = "";
+	path = "";
 }
 
 BVHManager::~BVHManager()
@@ -65,7 +65,7 @@ BVHManager::~BVHManager()
 
 void Tmpl8::BVHManager::SetBinaryPath(char* path)
 {
-    this->path = path;
+	this->path = path;
 }
 
 void BVHManager::Construct(struct Primitive* primitives, int count, bool forcerebuild)
@@ -106,72 +106,72 @@ void BVHManager::Construct(struct Primitive* primitives, int count, bool forcere
 	root->leftFirst = 0;
 	root->count = count;
 
-    // Binary saving/loading
-    if (path.length() != 0)
-    {
-        {
-            BufferedStream stream((char*)(path.c_str()));
-            if (!forcerebuild && stream.exists())
-            {
-                // Load BVH
-                stream.startReading();
-                unsigned long long poolsize = stream.readULong();
+	// Binary saving/loading
+	if (path.length() != 0)
+	{
+		{
+			BufferedStream stream((char*)(path.c_str()));
+			if (!forcerebuild && stream.exists())
+			{
+				// Load BVH
+				stream.startReading();
+				unsigned long long poolsize = stream.readULong();
 
-                // Validate
-                if (poolsize == nodePoolSize)
-                {
-                    this->nodePoolptr = stream.readUInt();
+				// Validate
+				if (poolsize == nodePoolSize)
+				{
+					this->nodePoolptr = stream.readUInt();
 
-                    this->maxDepth = stream.readUInt();
-                    this->countLeafes = stream.readUInt();
-                    this->averagePrimitives = stream.readDouble();
+					this->maxDepth = stream.readUInt();
+					this->countLeafes = stream.readUInt();
+					this->averagePrimitives = stream.readDouble();
 
-                    char* nodepool = stream.readArray(sizeof(BVHNode) * (LONGLONG)(nodePoolptr));
-                    char* indices = stream.readArray(sizeof(uint) * (LONGLONG)(nodePoolptr));
+					char* nodepool = stream.readArray(sizeof(BVHNode) * (LONGLONG)(nodePoolptr));
+					char* indices = stream.readArray(sizeof(uint) * (LONGLONG)(nodePoolptr));
 
-                    std::memcpy(this->nodePool, nodepool, sizeof(BVHNode) * (LONGLONG)(nodePoolptr));
-                    std::memcpy(this->indices, indices, sizeof(uint) * (LONGLONG)(nodePoolptr));
+					std::memcpy(this->nodePool, nodepool, sizeof(BVHNode) * (LONGLONG)(nodePoolptr));
+					std::memcpy(this->indices, indices, sizeof(uint) * (LONGLONG)(nodePoolptr));
 
-                    // Clean up
-                    delete[] nodepool;
-                    delete[] indices;
+					// Clean up
+					delete[] nodepool;
+					delete[] indices;
 
-                    stream.stopReading();
+					stream.stopReading();
 
-                    return;
-                }
+					return;
+				}
 
-                stream.stopReading();
-                stream.remove();
-            }
-        }
+				stream.stopReading();
+				stream.remove();
+			}
+		}
 
-        // Make new BVH
-        ConstructNode(root, ROOT_INIT_COST);
+		// Make new BVH
+		ConstructNode(root, ROOT_INIT_COST);
 
-        // Save
-        {
-            BufferedStream stream((char*)(path.c_str()));
-            stream.create();
-            stream.startWritting();
-            stream.writeULong(nodePoolSize);
-            stream.writeUInt(nodePoolptr);
+		// Save
+		{
+			BufferedStream stream((char*)(path.c_str()));
+			stream.create();
+			stream.startWritting();
+			stream.writeULong(nodePoolSize);
+			stream.writeUInt(nodePoolptr);
 
-            stream.writeUInt(maxDepth);
-            stream.writeUInt(countLeafes);
-            stream.writeDouble(averagePrimitives / countLeafes);
+			stream.writeUInt(maxDepth);
+			stream.writeUInt(countLeafes);
+			stream.writeDouble(averagePrimitives / countLeafes);
 
-            stream.writeArray((char*)(nodePool), sizeof(BVHNode) * (LONGLONG)(nodePoolptr));
-            stream.writeArray((char*)(indices), sizeof(uint) * (LONGLONG)(nodePoolptr));
-            stream.flush();
-            stream.stopWritting();
-        }
-    }
-    else
-    {
-        // Make new BVH
-        ConstructNode(root, ROOT_INIT_COST);
-    }
+			stream.writeArray((char*)(nodePool), sizeof(BVHNode) * (LONGLONG)(nodePoolptr));
+			stream.writeArray((char*)(indices), sizeof(uint) * (LONGLONG)(nodePoolptr));
+			stream.flush();
+			stream.stopWritting();
+		}
+	}
+	else
+	{
+		// Make new BVH
+		ConstructNode(root, ROOT_INIT_COST);
+	}
 
 	averagePrimitives /= countLeafes;
 }

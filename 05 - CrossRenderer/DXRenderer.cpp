@@ -25,16 +25,16 @@ struct sDXContext
 	DXRenderWindow* mWindow = nullptr;
 
 	// Device data
-	D3D_DRIVER_TYPE         mDriverType = D3D_DRIVER_TYPE_NULL;
-	D3D_FEATURE_LEVEL       mFeatureLevel = D3D_FEATURE_LEVEL_11_0;
-	ID3D11Device*           mPD3DDevice = nullptr;
-	ID3D11Device1*          mPD3DDevice1 = nullptr;
-	ID3D11DeviceContext*    mImmediateContext = nullptr;
+	D3D_DRIVER_TYPE		 mDriverType = D3D_DRIVER_TYPE_NULL;
+	D3D_FEATURE_LEVEL	   mFeatureLevel = D3D_FEATURE_LEVEL_11_0;
+	ID3D11Device*		   mPD3DDevice = nullptr;
+	ID3D11Device1*		  mPD3DDevice1 = nullptr;
+	ID3D11DeviceContext*	mImmediateContext = nullptr;
 	ID3D11DeviceContext1*   mImmediateContext1 = nullptr;
-	IDXGISwapChain*         mSwapChain = nullptr;
-	IDXGISwapChain1*        mSwapChain1 = nullptr;
+	IDXGISwapChain*		 mSwapChain = nullptr;
+	IDXGISwapChain1*		mSwapChain1 = nullptr;
 
-	ID3D11Texture2D*        mDepthStencil = nullptr;
+	ID3D11Texture2D*		mDepthStencil = nullptr;
 
 	ID3D11RenderTargetView* mRenderTargetView = nullptr;
 	ID3D11DepthStencilView* mDepthStencilView = nullptr;

@@ -5,9 +5,9 @@
 
 namespace Tmpl8
 {
-    // Normal ray packet
-    struct RayPacket
-    {
+	// Normal ray packet
+	struct RayPacket
+	{
 		/*		MORTON ORDER is used
 		*
 		*		0	1		4	5
@@ -17,10 +17,10 @@ namespace Tmpl8
 		*		10	11		14	15
 		*
 		*/
-        Ray rays[PACKET_SIZE * PACKET_SIZE];
-    };
+		Ray rays[PACKET_SIZE * PACKET_SIZE];
+	};
 
-    // SIMD ray packet
+	// SIMD ray packet
 	struct RayPacket4
 	{
 		Ray4 rays[8];
